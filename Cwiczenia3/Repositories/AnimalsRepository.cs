@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using Cwiczenia3.Model;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 
 namespace Cwiczenia3.Repositories;
 
@@ -23,9 +24,30 @@ public AnimalsRepository(IConfiguration configuration)
 
         using var cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT IdAnimal, Name, Description, Category, Area FROM Animal ORDER BY @orderBy";
-        cmd.Parameters.AddWithValue("@orderBy", orderBy);
 
+        switch (orderBy.ToLower())
+        {
+            case "name":
+                cmd.CommandText = "SELECT IdAnimal, Name, Description, Category, Area FROM Animal ORDER BY Name";
+                break;
+            case "description":
+                cmd.CommandText = "SELECT IdAnimal, Name, Description, Category, Area FROM Animal ORDER BY Description";
+                break;
+            case "category":
+                cmd.CommandText = "SELECT IdAnimal, Name, Description, Category, Area FROM Animal ORDER BY Category";
+                break;
+            case "area":
+                cmd.CommandText = "SELECT IdAnimal, Name, Description, Category, Area FROM Animal ORDER BY Area";
+
+                break;
+            default:
+                cmd.CommandText = "SELECT IdAnimal, Name, Description, Category, Area FROM Animal ORDER BY Name";
+
+                break;
+        }
+        
+      
+      
         var dr = cmd.ExecuteReader();
 
         var animals = new List<Animal>();
