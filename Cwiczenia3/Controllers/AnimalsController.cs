@@ -17,9 +17,7 @@ public class AnimalsController : ControllerBase
         _animalsService = animalsService;
     }
     
-    private readonly List<Animal> _animals;
-
-
+   
    [HttpGet]
    public IActionResult GetAnimals(string orderBy="name")
    {
