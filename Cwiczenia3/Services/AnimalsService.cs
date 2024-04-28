@@ -7,9 +7,9 @@ public class AnimalsService : IAnimalsService
 {
     private readonly IAnimalsRepository _animalsRepository;
 
-    public AnimalsService(IAnimalsRepository animalsService)
+    public AnimalsService(IAnimalsRepository animalsRepository)
     {
-        _animalsRepository = animalsService;
+        _animalsRepository = animalsRepository;
     }
 
     public IEnumerable<Animal> GetAnimals(string orderBy)
