@@ -29,21 +29,21 @@ public class AnimalsController : ControllerBase
     [HttpPost]
     public IActionResult CreateAnimal(Animal newAnimal)
     {
-        var affectedCount = _animalsService.CreateAnimal(newAnimal);
+        _animalsService.CreateAnimal(newAnimal);
         return StatusCode(StatusCodes.Status201Created);
     }
     
     [HttpPut("{idAnimal}")]
     public IActionResult UpdateAnimal(int idAnimal, Animal updatedAnimal)
     {
-        var affectedCount = _animalsService.UpdateAnimal(updatedAnimal);
-        return NoContent();
+       _animalsService.UpdateAnimal(updatedAnimal);
+         return Ok($"Animal {idAnimal} was updated");
     }
     
     [HttpDelete("{idAnimal}")]
     public IActionResult DeleteAnimal(int idAnimal)
     {
-        var affectedCount = _animalsService.DeleteAnimal(idAnimal);
-        return NoContent();
+        _animalsService.DeleteAnimal(idAnimal);
+        return Ok($"Animal with id {idAnimal} deleted");
     }
 }
